@@ -1,0 +1,13 @@
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\bin\Debug\netcoreapp3.1\Logistics.Infrastructure.deps.json
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\bin\Debug\netcoreapp3.1\Logistics.Infrastructure.dll
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\bin\Debug\netcoreapp3.1\Logistics.Infrastructure.pdb
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\bin\Debug\netcoreapp3.1\Logistics.Domain.dll
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\bin\Debug\netcoreapp3.1\Logistics.Domain.pdb
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\obj\Debug\netcoreapp3.1\Logistics.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\obj\Debug\netcoreapp3.1\Logistics.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\obj\Debug\netcoreapp3.1\Logistics.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\obj\Debug\netcoreapp3.1\Logistics.Infrastructure.AssemblyInfo.cs
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\obj\Debug\netcoreapp3.1\Logistics.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\obj\Debug\netcoreapp3.1\Logistics.Infrastructure.csproj.CopyComplete
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\obj\Debug\netcoreapp3.1\Logistics.Infrastructure.dll
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Infrastructure\obj\Debug\netcoreapp3.1\Logistics.Infrastructure.pdb

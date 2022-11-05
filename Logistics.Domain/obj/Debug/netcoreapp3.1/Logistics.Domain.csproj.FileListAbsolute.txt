@@ -1,0 +1,13 @@
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\bin\Debug\netcoreapp3.1\Logistics.Domain.deps.json
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\bin\Debug\netcoreapp3.1\Logistics.Domain.runtimeconfig.json
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\bin\Debug\netcoreapp3.1\Logistics.Domain.runtimeconfig.dev.json
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\bin\Debug\netcoreapp3.1\Logistics.Domain.dll
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\bin\Debug\netcoreapp3.1\Logistics.Domain.pdb
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\obj\Debug\netcoreapp3.1\Logistics.Domain.csproj.AssemblyReference.cache
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\obj\Debug\netcoreapp3.1\Logistics.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\obj\Debug\netcoreapp3.1\Logistics.Domain.AssemblyInfoInputs.cache
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\obj\Debug\netcoreapp3.1\Logistics.Domain.AssemblyInfo.cs
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\obj\Debug\netcoreapp3.1\Logistics.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\obj\Debug\netcoreapp3.1\Logistics.Domain.dll
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\obj\Debug\netcoreapp3.1\Logistics.Domain.pdb
+C:\Users\Filipe\Desktop\Catalde\Logistics\Logistics.Domain\obj\Debug\netcoreapp3.1\Logistics.Domain.genruntimeconfig.cache
