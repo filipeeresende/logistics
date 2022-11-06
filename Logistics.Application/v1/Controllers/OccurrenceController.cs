@@ -1,6 +1,7 @@
 ﻿using Logistics.Application.v1.Controllers.Base;
 using Logistics.Domain.Constants;
 using Logistics.Domain.Dto;
+using Logistics.Domain.Dto.Occurrences;
 using Logistics.Domain.Dto.Ocurrences;
 using Logistics.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +23,7 @@ namespace Logistics.Application.v1.Controllers
             _occurrenceService = occurrenceService;
         }
 
-        [SwaggerOperation("Returns a data base occurence by id")]
+        [SwaggerOperation("Returns a data base occurrence by id")]
         [SwaggerResponse(StatusCodes.Status200OK, "", typeof(OccurrenceResponse))]
         [SwaggerResponse(StatusCodes.Status404NotFound, ReturnMessageOccurrence.MessageOccurenceNotFound, typeof(string))]
         [HttpGet("{id}")]
@@ -31,7 +32,7 @@ namespace Logistics.Application.v1.Controllers
             return Ok(await _occurrenceService.GetOccurrenceById(id));
         }
 
-        [SwaggerOperation("List all database occurence")]
+        [SwaggerOperation("List all database occurrences")]
         [SwaggerResponse(StatusCodes.Status200OK, "", typeof(IList<OccurrencesResponse>))]
         [SwaggerResponse(StatusCodes.Status404NotFound, ReturnMessageOccurrence.MessageOccurencesNotFound, typeof(string))]
         [HttpGet]
@@ -47,19 +48,28 @@ namespace Logistics.Application.v1.Controllers
 
         [HttpPost]
         public async Task<IActionResult> InsertOccurrence(OccurrenceRequest ocurrence)
-        {
-            await _occurrenceService.InsertOccurrence(ocurrence);
-            return Ok(ReturnMessageOccurrence.MessageInsertOcorrence);
+        {          
+            return Ok(await _occurrenceService.InsertOccurrence(ocurrence));
         }
 
-        [SwaggerOperation("Delete an order by id")]
+        [SwaggerOperation("Delete order by id")]
         [SwaggerResponse(StatusCodes.Status200OK, ReturnMessageOccurrence.MessageDeleteOccurrence, typeof(string))]
         [SwaggerResponse(StatusCodes.Status404NotFound, ReturnMessageOccurrence.MessageOccurrenceStatus, typeof(string))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, ReturnMessageOccurrence.MessageOccurenceNotFound, typeof(string))]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOccurrence(int id)
         {
-            await _occurrenceService.DeleteOccurrence(id);
-            return Ok(ReturnMessageOccurrence.MessageDeleteOccurrence);
+            return Ok(await _occurrenceService.DeleteOccurrence(id));
+        } 
+
+        [SwaggerOperation("Update order by id")]
+        [SwaggerResponse(StatusCodes.Status200OK, ReturnMessageOccurrence.MessageUpdateOccurrence, typeof(string))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, ReturnMessageOrder.MessageOrderNotFound, typeof(string))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, ReturnMessageOccurrence.MessageOccurenceNotFound, typeof(string))]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateOccurrence(UpdateOccurrenceRequest ocurrence, int id )
+        {
+            return Ok(await _occurrenceService.UpdateOccurrence(ocurrence, id));
         }
     }
 }

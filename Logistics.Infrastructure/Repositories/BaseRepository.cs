@@ -7,24 +7,24 @@ using System.Threading.Tasks;
 
 namespace Logistics.Infrastructure.Repositories
 {
-    public  class BaseRepository : IBaseRepository
+    public  class BaseRepository<TEntity> : IBaseRepository<TEntity> 
     {
-        private readonly LogisticsContext _context;
+        protected readonly LogisticsContext _context;
         public BaseRepository(LogisticsContext context)
         {
             _context = context;
         }
-        public async Task InsertAsync<TEntry>(TEntry insert)
+        public async Task InsertAsync(TEntity insert)
         {
             await _context.AddAsync(insert);
             await _context.SaveChangesAsync();
         }
-        public async Task DeleteAsync<TEntry>(TEntry delete)
+        public async Task DeleteAsync(TEntity delete)
         {
             _context.Remove(delete);
             await _context.SaveChangesAsync();
         }
-        public async Task UpdateAsync<TEntry>(TEntry update)
+        public async Task UpdateAsync(TEntity update)
         {
             _context.Update(update);
             await _context.SaveChangesAsync();

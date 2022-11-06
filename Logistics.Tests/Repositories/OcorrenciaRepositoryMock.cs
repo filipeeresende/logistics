@@ -1,4 +1,6 @@
-﻿using Logistics.Domain.Dto.Ocurrences;
+﻿using Logistics.Domain.Dto.Occurrences;
+using Logistics.Domain.Dto.Ocurrences;
+using Logistics.Domain.Dto.Orders;
 using Logistics.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Text;
 
 namespace Logistics.Tests.Repositories
 {
-    public class OcorrenciaRepositoryMock
+    public static class OcorrenciaRepositoryMock
     {
         public static OccurrenceResponse GetOccurrenceByIdMock()
         {
@@ -94,6 +96,31 @@ namespace Logistics.Tests.Repositories
                 IndFinalizadora = false,
                 HoraOcorrencia = new DateTime(2022, 11, 06, 13, 12, 00),
                 IdPedido = 260
+            };
+        }
+        public static Ocorrencia GetOccurrenceByIdOrderMock()
+        {
+            return new Ocorrencia
+            {
+                TipoOcorrencia = "a caminho",
+                HoraOcorrencia = new DateTime(2022, 11, 07, 13, 12, 00),
+                IdPedido = 240
+            };
+        }
+        public static Ocorrencia GetOccurrenceByIdObjectMock()
+        {
+            return new Ocorrencia
+            {
+                TipoOcorrencia = "a caminho",
+                HoraOcorrencia = new DateTime(2022, 11, 07, 13, 12, 00),
+                IdPedido = 240
+            };
+        }
+        public static UpdateOccurrenceRequest UpdatedOccurrenceRequest()
+        {
+            return new UpdateOccurrenceRequest
+            {
+                TipoOcorrencia = "entregue com sucesso",
             };
         }
     }

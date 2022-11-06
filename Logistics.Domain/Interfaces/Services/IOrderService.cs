@@ -13,5 +13,6 @@ namespace Logistics.Domain.Interfaces.Services
         Task<IList<OrdersResponse>> GetOrders();
         Task<string>InsertOrder(InsertOrderRequest order);
         Task<string>DeleteOrder(int id);
+        Task<string> UpdateOrder(UpdateOrderRequest updateOrderRequest, int id);
     }
 }

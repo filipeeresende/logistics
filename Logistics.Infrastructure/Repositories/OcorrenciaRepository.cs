@@ -11,12 +11,10 @@ using System.Threading.Tasks;
 
 namespace Logistics.Infrastructure.Repositories
 {
-    public class OcorrenciaRepository : IOcorrenciaRepository
+    public class OcorrenciaRepository : BaseRepository<Ocorrencia>, IOcorrenciaRepository
     {
-        private readonly LogisticsContext _context;
-        public OcorrenciaRepository(LogisticsContext context)
+        public OcorrenciaRepository(LogisticsContext context) : base(context)
         {
-            _context = context;
         }
 
         public async Task<OccurrenceResponse> GetOccurrenceById(int id)
@@ -50,9 +48,22 @@ namespace Logistics.Infrastructure.Repositories
                 .Select(x => new Ocorrencia
                 {
                    HoraOcorrencia = x.HoraOcorrencia,
-                }).OrderByDescending(x=> x.HoraOcorrencia)
+                   Id = x.Id,
+                }).OrderBy(x=> x.Id)
                 .LastOrDefaultAsync();
 
+        }
+        public async Task<Ocorrencia> GetOccurrenceByIdObject(int id)
+        {
+            return await _context.Ocorrencia
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+        }
+        public async Task<Ocorrencia> GetOccurrenceByIdOrder(int id)
+        {
+            return await _context.Ocorrencia
+                .Where(x => x.IdPedido == id)
+                .FirstOrDefaultAsync();
         }
     }
 }

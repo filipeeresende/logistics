@@ -1,4 +1,5 @@
-﻿using Logistics.Domain.Dto.Ocurrences;
+﻿using Logistics.Domain.Dto.Occurrences;
+using Logistics.Domain.Dto.Ocurrences;
 using Logistics.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,6 @@ namespace Logistics.Domain.Utils
             return new Ocorrencia
             {
                 Id = id
-              
             };
         }
     }

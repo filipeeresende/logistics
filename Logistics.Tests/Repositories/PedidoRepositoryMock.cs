@@ -8,6 +8,7 @@ namespace Logistics.Tests.Repositories
 {
     public static class PedidoRepositoryMock
     {
+
         public static OrderResponse GetOrderByIdMock()
         {
             return new OrderResponse
@@ -15,6 +16,16 @@ namespace Logistics.Tests.Repositories
                 NumeroPedido = 139,
                 HoraPedido = DateTime.Now,
                 IndCancelado = false,
+                IndConcluido = false
+            };
+        }
+        public static OrderResponse GetOrderByIdIsIncompletedMock()
+        {
+            return new OrderResponse
+            {
+                NumeroPedido = 139,
+                HoraPedido = DateTime.Now,
+                IndCancelado = true,
                 IndConcluido = false
             };
         }
@@ -54,12 +65,9 @@ namespace Logistics.Tests.Repositories
                 Id = 3
             };
         }
-        public static OrderResponse CheckIfOrderExistsMock()
+        public static bool CheckIfOrderExistsMock()
         {
-            return new OrderResponse
-            {
-                NumeroPedido = 240,
-            };
+            return true;
         }
         public static OrderResponse GetOrderByIdIncompletedMock()
         {
@@ -77,6 +85,14 @@ namespace Logistics.Tests.Repositories
             {
                 NumeroPedido = 139,
                 HoraPedido = DateTime.Now,
+                IndCancelado = false,
+                IndConcluido = true
+            };
+        }
+        public static UpdateOrderRequest UpdatedOrder()
+        {
+            return new UpdateOrderRequest
+            {
                 IndCancelado = false,
                 IndConcluido = true
             };

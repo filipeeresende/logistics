@@ -16,11 +16,9 @@ namespace Logistics.Domain.Services
     public class OrderService : IOrderService
     {
         private readonly IPedidoRepository _pedidoRepository;
-        private readonly IBaseRepository _baseRepository;
-        public OrderService(IPedidoRepository pedidoRepository, IBaseRepository baseRepository)
+        public OrderService(IPedidoRepository pedidoRepository)
         {
             _pedidoRepository = pedidoRepository;
-            _baseRepository = baseRepository;
         }
         public async Task<OrderResponse> GetOrderById(int id)
         {
@@ -42,7 +40,7 @@ namespace Logistics.Domain.Services
         }
         public async Task<string>InsertOrder(InsertOrderRequest order)
         {
-            await _baseRepository.InsertAsync(OrderUtils.AddOrderMapper(order));
+            await _pedidoRepository.InsertAsync(OrderUtils.AddOrderMapper(order));
             return ReturnMessageOrder.MessageOrdersRegistered;
         }
         public async Task<string>DeleteOrder(int id)
@@ -52,8 +50,21 @@ namespace Logistics.Domain.Services
             if (order == null)
                 throw new NotFoundException(ReturnMessageOrder.MessageOrderNotFound);
 
-            await _baseRepository.DeleteAsync(order);
+            await _pedidoRepository.DeleteAsync(order);
             return ReturnMessageOrder.MessageOrdersDelete;
+        }
+        public async Task<string> UpdateOrder(UpdateOrderRequest updateOrderRequest, int id)
+        {
+            Pedido order = await _pedidoRepository.GetOrderByIdObject(id);
+
+            if (order == null)
+                throw new NotFoundException(ReturnMessageOrder.MessageOrderNotFound);
+
+            order.IndCancelado = updateOrderRequest.IndCancelado;
+            order.IndConcluido = updateOrderRequest.IndConcluido;
+
+            await _pedidoRepository.UpdateAsync(order);
+            return ReturnMessageOrder.MessageOrderUpdate;
         }
 
     }

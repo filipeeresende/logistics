@@ -11,12 +11,10 @@ using System.Threading.Tasks;
 
 namespace Logistics.Infrastructure.Repositories
 {
-    public class PedidoRepository : IPedidoRepository
+    public class PedidoRepository : BaseRepository<Pedido>, IPedidoRepository
     {
-        private readonly LogisticsContext _context;
-        public PedidoRepository(LogisticsContext context)
+        public PedidoRepository(LogisticsContext context) : base(context)   
         {
-            _context = context;
         }
         public async Task<OrderResponse> GetOrderById(int id)
         {
@@ -49,15 +47,10 @@ namespace Logistics.Infrastructure.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<OrderResponse> CheckIfOrderExists(int id)
+        public async Task<bool> CheckIfOrderExists(int id)
         {
             return await _context.Pedidos
-                .Where(x => x.Id == id)
-                .Select(x => new OrderResponse
-                {
-                    NumeroPedido = x.NumeroPedido,
-
-                }).FirstOrDefaultAsync();
+                .AnyAsync(x => x.Id == id);
         }
     }
 }

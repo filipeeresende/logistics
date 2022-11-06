@@ -1,4 +1,5 @@
-﻿using Logistics.Domain.Dto.Ocurrences;
+﻿using Logistics.Domain.Dto.Occurrences;
+using Logistics.Domain.Dto.Ocurrences;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace Logistics.Domain.Interfaces.Services
     {
         Task<OccurrenceResponse> GetOccurrenceById(int id);
         Task<IList<OccurrencesResponse>> GetOccurrences();
-        Task InsertOccurrence(OccurrenceRequest newOccurrence);
-        Task DeleteOccurrence(int id);
+        Task <string>InsertOccurrence(OccurrenceRequest newOccurrence);
+        Task <string>DeleteOccurrence(int id);
+        Task<string> UpdateOccurrence(UpdateOccurrenceRequest updateOccurrenceRequest, int id);
     }
 }

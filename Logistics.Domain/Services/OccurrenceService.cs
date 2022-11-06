@@ -1,5 +1,6 @@
 ﻿using Logistics.Domain.Constants;
 using Logistics.Domain.Dto;
+using Logistics.Domain.Dto.Occurrences;
 using Logistics.Domain.Dto.Ocurrences;
 using Logistics.Domain.Dto.Orders;
 using Logistics.Domain.Entities;
@@ -19,15 +20,11 @@ namespace Logistics.Domain.Services
     {
         private readonly IOcorrenciaRepository _ocorrenciaRepository;
         private readonly IPedidoRepository _pedidoRepository;
-        private readonly IBaseRepository _baseRepository;
-
         public OccurrenceService(IOcorrenciaRepository ocorrenciaRepository, 
-            IPedidoRepository pedidoRepository,
-            IBaseRepository baseRepository) 
+                                 IPedidoRepository pedidoRepository) 
         {
             _ocorrenciaRepository = ocorrenciaRepository;
             _pedidoRepository = pedidoRepository;
-            _baseRepository = baseRepository;
         }
 
         public async Task<OccurrenceResponse> GetOccurrenceById(int id)
@@ -48,11 +45,9 @@ namespace Logistics.Domain.Services
 
             return ocurrences;
         }
-        public async Task InsertOccurrence(OccurrenceRequest newOccurrence)
+        public async Task<string> InsertOccurrence(OccurrenceRequest newOccurrence)
         {
-            OrderResponse checkOrder = await _pedidoRepository.CheckIfOrderExists(newOccurrence.IdPedido);
-
-            if (checkOrder == null)
+            if (!await _pedidoRepository.CheckIfOrderExists(newOccurrence.IdPedido))
                 throw new NotFoundException(ReturnMessageOrder.MessageOrderNotFound);
 
             Ocorrencia occurrence = OcurrenceUtils.AddOccurrenceMapper(newOccurrence);
@@ -61,22 +56,52 @@ namespace Logistics.Domain.Services
 
             await ValidateIfOccurrenceIsFinisher(occurrence);
 
-            await _baseRepository.InsertAsync(occurrence);
+            await _ocorrenciaRepository.InsertAsync(occurrence);
 
-            if (occurrence.TipoOcorrencia == "entregue com sucesso")
-                await _baseRepository.UpdateAsync(OrderUtils.OrderCompletedMapper(occurrence));
+            await ValidateIfTheOrderWasCompletedOrCanceled(occurrence);
 
-            if (occurrence.TipoOcorrencia == "cliente ausente" || occurrence.TipoOcorrencia == "avaria no produto")
-                await _baseRepository.UpdateAsync(OrderUtils.OrderCanceled(occurrence));
+            return ReturnMessageOccurrence.MessageInsertOcorrence;
+
         }
-        public async Task DeleteOccurrence(int id)
+        public async Task<string> DeleteOccurrence(int id)
         {
-            await ValidateOccurrenceStatus(id);
-            await _baseRepository.DeleteAsync(OcurrenceUtils.OccurenceDeleteMapper(id));
+            Ocorrencia occurrence = await _ocorrenciaRepository.GetOccurrenceByIdObject(id);
+
+            if (occurrence == null)
+                throw new NotFoundException(ReturnMessageOccurrence.MessageOccurenceNotFound);
+
+            await ValidateOccurrenceStatus(occurrence.IdPedido);
+
+            await _ocorrenciaRepository.DeleteAsync(OcurrenceUtils.OccurenceDeleteMapper(id));
+
+            return ReturnMessageOccurrence.MessageDeleteOccurrence;
+        }
+        public async Task <string>UpdateOccurrence(UpdateOccurrenceRequest updateOccurrenceRequest, int id)
+        {
+
+            if (!await _pedidoRepository.CheckIfOrderExists(updateOccurrenceRequest.IdPedido))
+                throw new NotFoundException(ReturnMessageOrder.MessageOrderNotFound);
+
+            Ocorrencia occurrence = await _ocorrenciaRepository.GetOccurrenceByIdObject(id);
+
+            if (occurrence == null)
+                throw new NotFoundException(ReturnMessageOccurrence.MessageOccurenceNotFound);
+
+            occurrence.TipoOcorrencia = updateOccurrenceRequest.TipoOcorrencia;
+
+            await ValidateOccurenceType(occurrence);
+
+            await ValidateIfTheOrderWasCompletedOrCanceled(occurrence);
+
+            await _ocorrenciaRepository.UpdateAsync(occurrence);
+
+            return ReturnMessageOccurrence.MessageUpdateOccurrence;
+
         }
         private async Task ValidateOccurenceType(Ocorrencia ocurrenceType)
         {
-            Ocorrencia ocurrence = await _ocorrenciaRepository.GetOccurrenceByType(ocurrenceType.TipoOcorrencia);
+            Ocorrencia ocurrence = await _ocorrenciaRepository
+                .GetOccurrenceByType(ocurrenceType.TipoOcorrencia);
 
             if (ocurrence != null) 
             {
@@ -86,20 +111,27 @@ namespace Logistics.Domain.Services
         }
         private async Task ValidateIfOccurrenceIsFinisher(Ocorrencia newOccurrence)
         {
-            OccurrenceResponse ocurrence = await _ocorrenciaRepository.GetOccurrenceById(newOccurrence.IdPedido);
+            Ocorrencia ocurrence = await _ocorrenciaRepository
+                .GetOccurrenceByIdOrder(newOccurrence.IdPedido);
 
             if (ocurrence != null)
                 newOccurrence.IndFinalizadora = true;
         }
-        private async Task ValidateOccurrenceStatus(int id)
+        private async Task ValidateOccurrenceStatus(int idPedido)
         {
-            OccurrenceResponse occurrence = await _ocorrenciaRepository.GetOccurrenceById(id);
-
-            OrderResponse order = await _pedidoRepository.GetOrderById(occurrence.IdPedido);
+            OrderResponse order = await _pedidoRepository.GetOrderById(idPedido);
 
             if (order.IndCancelado || order.IndConcluido)
                 throw new NotFoundException(ReturnMessageOccurrence.MessageOccurrenceStatus);
         }
+        private async Task ValidateIfTheOrderWasCompletedOrCanceled(Ocorrencia occurrence)
+        {
+            if (occurrence.TipoOcorrencia == Validations.ValidationOrderDevileverd)
+                await _pedidoRepository.UpdateAsync(OrderUtils.OrderCompletedMapper(occurrence));
 
+            if (occurrence.TipoOcorrencia == Validations.ValidationProductMalfunction || 
+                occurrence.TipoOcorrencia == Validations.ValidationAbsentCustomer)
+                await _pedidoRepository.UpdateAsync(OrderUtils.OrderCanceled(occurrence));
+        } 
     }
 }

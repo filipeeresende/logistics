@@ -17,12 +17,6 @@ namespace Logistics.Domain.Utils
                 HoraPedido = order.HoraPedido,
             };
         }
-        public static void UpdateOrderMapper(Pedido order, UpdateOrderRequest request)
-        {
-            order.NumeroPedido = request.NumeroPedido;
-            order.IndCancelado = false;
-            order.IndConcluido = false;
-        }
         public static Pedido OrderCompletedMapper(Ocorrencia occurrence)
         {
             return new Pedido

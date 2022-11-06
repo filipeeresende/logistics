@@ -47,7 +47,7 @@ namespace Logistics.Application.v1.Controllers
             return Ok(await _orderService.InsertOrder(order));
         }
 
-        [SwaggerOperation("Delete an order by id")]
+        [SwaggerOperation("Delete order by id")]
         [SwaggerResponse(StatusCodes.Status200OK, ReturnMessageOrder.MessageOrdersDelete, typeof(string))]
         [SwaggerResponse(StatusCodes.Status404NotFound, ReturnMessageOrder.MessageOrderNotFound, typeof(string))]
         [HttpDelete("{id}")]
@@ -55,6 +55,17 @@ namespace Logistics.Application.v1.Controllers
         {
             return Ok(await _orderService.DeleteOrder(id));
 
+        }
+
+        [SwaggerOperation("Update order by id")]
+        [SwaggerResponse(StatusCodes.Status200OK, ReturnMessageOrder.MessageOrderUpdate, typeof(string))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, ReturnMessageOrder.MessageOrderNotFound, typeof(string))]
+        [SwaggerResponse(StatusCodes.Status404NotFound, ReturnMessageOccurrence.MessageOccurenceType, typeof(string))]
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateOrder(UpdateOrderRequest order, int id)
+        {
+            return Ok(await _orderService.UpdateOrder(order, id));
         }
     }
 }
