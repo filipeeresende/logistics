@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Logistics.Domain.Interfaces.Repositories
 {
-    public interface IOcorrenciaRepository
+    public interface IOcorrenciaRepository : IBaseRepository<Ocorrencia>
     {
         Task<OccurrenceResponse> GetOccurrenceById(int id);
         Task<IList<OccurrencesResponse>> GetOccurrences();
         Task<Ocorrencia> GetOccurrenceByType(string ocorrenceType);
+        Task<Ocorrencia> GetOccurrenceByIdObject(int id);
+        Task<Ocorrencia> GetOccurrenceByIdOrder(int id);
 
     }
 }

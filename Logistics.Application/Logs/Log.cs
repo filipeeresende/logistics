@@ -9,8 +9,8 @@ namespace Logistics.Application.Logs
         {
             try
             {
-                using (StreamWriter outputFile = new StreamWriter(Path.Combine($"{Directory.GetCurrentDirectory()}/Logs/" + sFileName + ".txt"), true))
-                    outputFile.Write($"{sText} - {DateTime.Now}{Environment.NewLine}");
+                using StreamWriter outputFile = new StreamWriter(Path.Combine($"{Directory.GetCurrentDirectory()}/Logs/" + sFileName + ".txt"), true);
+                outputFile.Write($"{sText} - {DateTime.Now}{Environment.NewLine}");
             }
             catch { }
         }

@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Logistics.Domain.Interfaces.Repositories
 {
-    public interface IBaseRepository
+    public interface IBaseRepository<TEntity>
     {
-        Task InsertAsync<TEntry>(TEntry insert);
-        Task DeleteAsync<TEntry>(TEntry delete);
-        Task UpdateAsync<TEntry>(TEntry update);
+        Task InsertAsync(TEntity insert);
+        Task DeleteAsync(TEntity delete);
+        Task UpdateAsync(TEntity update);
     }
 }
