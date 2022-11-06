@@ -24,10 +24,10 @@ namespace Logistics.Application.Configurations
             new RateLimitRule
             {
                 Endpoint = $"*",
-                Period = "24h",
-                Limit = 5,
+                Period = "1m",
+                Limit = 20,
             },
-           
+
         };
             });
 

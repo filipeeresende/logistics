@@ -17,18 +17,14 @@ namespace Logistics.Application.Configurations
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
             services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
 
-            ////Repositories
+            //Repositories
             services.AddScoped<IPedidoRepository, PedidoRepository>();
             services.AddScoped<IOcorrenciaRepository, OcorrenciaRepository>();
-            services.AddScoped<IBaseRepository, BaseRepository>();
 
 
-            //////Services
+            //Services
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOccurrenceService, OccurrenceService>();
-
-            //// chamadas
-            //services.AddScoped<IImageRequests, ImageRequests>();
 
             return services;
         }
